@@ -8,7 +8,7 @@ set -e
 # Definiere hier alle benötigten Pakete für die jeweiligen Paketmanager.
 
 # Für Arch Linux (pacman)
-PACMAN_PACKAGES="hyprland hyprpaper waybar rofi alacritty thunar firefox swaylock dunst polkit-kde-agent grim slurp noto-fonts-nerd"
+PACMAN_PACKAGES="hyprland hyprpaper waybar rofi-wayland alacritty thunar firefox swaylock dunst polkit-kde-agent grim slurp ttf-noto-nerd"
 # AUR-Pakete (benötigen einen AUR-Helper wie yay oder paru)
 AUR_PACKAGES="visual-studio-code-bin"
 
@@ -56,7 +56,7 @@ install_dependencies() {
 
 # --- VARIABLEN ---
 SCRIPT_DIR=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" &> /dev/null && pwd)
-CONFIG_SOURCE_DIR="$SCRIPT_DIR/config"
+CONFIG_SOURCE_DIR="$SCRIPT_DIR/.config"
 WALLPAPER_SOURCE_DIR="$SCRIPT_DIR/wallpapers"
 CONFIG_DEST_DIR="$HOME/.config"
 WALLPAPER_DEST_DIR="$HOME/Pictures"
@@ -67,7 +67,7 @@ echo "🚀 Starte die Konfiguration deines Systems..."
 
 # 1. Abhängigkeiten installieren
 # ------------------------------
-install_dependencies
+# install_dependencies
 
 # 2. Konfigurationsdateien kopieren
 # ---------------------------------
