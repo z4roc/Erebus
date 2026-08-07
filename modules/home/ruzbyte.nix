@@ -13,10 +13,7 @@
 
       xdg.enable = true;
 
-      xdg.configFile = {
-        "nvim".source = "${self}/.config/nvim";
-        "fastfetch".source = "${self}/.config/fastfetch";
-      };
+      xdg.configFile."fastfetch".source = "${self}/.config/fastfetch";
 
       home.file.".config/noctalia/".source =
         config.lib.file.mkOutOfStoreSymlink "${dotfiles}/.config/noctalia";

@@ -196,7 +196,7 @@
         extraPackages = with pkgs; [
           csharpier
           nil
-          nixfmt-rfc-style
+          nixfmt
           prettierd
           ruff
           rust-analyzer
@@ -409,7 +409,7 @@
             enable = true;
             settings = {
               direction = "float";
-              open_mapping = "<C-\\\\>";
+              open_mapping = "[[<C-\\>]]";
               float_opts.border = "curved";
             };
           };

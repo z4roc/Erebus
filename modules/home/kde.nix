@@ -32,7 +32,6 @@
         workspace = {
           iconTheme = "Papirus-Dark";
           clickItemTo = "select";
-          lookAndFeel = "Catppuccin-Mocha-Mauve";
           colorScheme = "CatppuccinMochaMauve";
           wallpaper = defaultWallpaper;
           windowDecorations = {

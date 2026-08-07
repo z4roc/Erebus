@@ -1,35 +1,85 @@
 { ... }: {
-  flake.nixosModules.boot = { pkgs, ... }: {
-    boot.kernelPackages = pkgs.linuxPackages_latest;
+  flake.nixosModules.boot =
+    { pkgs, ... }:
+    let
+      bootWindows = pkgs.writeShellApplication {
+        name = "boot-windows";
+        runtimeInputs = with pkgs; [
+          efibootmgr
+          polkit
+          sudo
+          systemd
+        ];
+        text = ''
+          if (( EUID != 0 )); then
+            if [[ -t 0 ]]; then
+              exec sudo /run/current-system/sw/bin/boot-windows "$@"
+            else
+              exec pkexec /run/current-system/sw/bin/boot-windows "$@"
+            fi
+          fi
 
-    boot.loader.systemd-boot.enable = false;
-    boot.loader.efi.canTouchEfiVariables = true;
+          windows_entry_found=false
+          while IFS= read -r entry; do
+            if [[ $entry =~ ^Boot0000\*?[[:space:]]+Windows[[:space:]]+Boot[[:space:]]+Manager([[:space:]]|$) ]]; then
+              windows_entry_found=true
+              break
+            fi
+          done < <(efibootmgr)
 
-    boot.loader.limine = {
-      enable = true;
-      efiSupport = true;
-      enableEditor = false;
-      secureBoot.enable = false; # you can enable secure boot if you are in setup mode
+          if [[ $windows_entry_found != true ]]; then
+            echo "Boot0000 is not Windows Boot Manager; refusing to change BootNext." >&2
+            exit 1
+          fi
 
-      style = {
-        wallpapers = [ ../../wallpapers/alpha_pgr.jpg ];
-        wallpaperStyle = "stretched";
-        interface.branding = "Alpha OS";
+          efibootmgr --bootnext 0000
+          systemctl reboot
+        '';
       };
+
+      bootWindowsDesktop = pkgs.makeDesktopItem {
+        name = "boot-windows";
+        desktopName = "Reboot into Windows";
+        comment = "Set Windows Boot Manager for the next boot and restart";
+        icon = "system-reboot";
+        exec = "boot-windows";
+        categories = [ "System" ];
+        terminal = false;
+      };
+    in
+    {
+      boot.kernelPackages = pkgs.linuxPackages_latest;
+
+      boot.loader.systemd-boot.enable = false;
+      boot.loader.efi.canTouchEfiVariables = true;
+
+      boot.loader.limine = {
+        enable = true;
+        efiSupport = true;
+        enableEditor = false;
+        secureBoot.enable = false; # you can enable secure boot if you are in setup mode
+
+        style = {
+          wallpapers = [ ../../wallpapers/alpha_pgr.jpg ];
+          wallpaperStyle = "stretched";
+          interface.branding = "Alpha OS";
+        };
+      };
+
+      boot.plymouth.enable = true;
+      boot.kernelParams = [
+        "quiet"
+        "splash"
+        "udev.log_level=3"
+      ];
+      boot.consoleLogLevel = 0;
+      boot.initrd.verbose = false;
+
+      environment.systemPackages = with pkgs; [
+        bootWindows
+        bootWindowsDesktop
+        efibootmgr
+        sbctl
+      ];
     };
-
-    boot.plymouth.enable = true;
-    boot.kernelParams = [
-      "quiet"
-      "splash"
-      "udev.log_level=3"
-    ];
-    boot.consoleLogLevel = 0;
-    boot.initrd.verbose = false;
-
-    environment.systemPackages = with pkgs; [
-      efibootmgr
-      sbctl
-    ];
-  };
 }

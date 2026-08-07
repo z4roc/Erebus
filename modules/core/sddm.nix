@@ -1,20 +1,29 @@
-{ inputs, ... }: {
-    flake.nixosModules.sddm = { ... } : {
-        imports = [ inputs.qylock.nixosModules.default ];
-        services.displayManager.sddm.enable = true;
+{ inputs, ... }:
+{
+  flake.nixosModules.sddm =
+    { pkgs, ... }:
+    let
+      qylockThemes = inputs.qylock.legacyPackages.${pkgs.stdenv.hostPlatform.system}.mkSddmThemes { };
+    in
+    {
+      services.displayManager.sddm = {
+        enable = true;
+        theme = "pixel-night-city";
+        extraPackages = [
+          qylockThemes
+          pkgs.qt6.qt5compat
+          pkgs.qt6.qtmultimedia
+          pkgs.qt6.qtsvg
+        ];
+      };
 
-        programs.qylock = {
-            enable = true;
-            theme = "wuwa";
-            sddm.enable = true;
-            quickshell.enable = false;
-        };
+      environment.systemPackages = [ qylockThemes ];
 
-        services.displayManager.autoLogin = {
-          enable = true;
-          user = "ruzbyte";
-        };
+      services.displayManager.autoLogin = {
+        enable = true;
+        user = "ruzbyte";
+      };
 
-        services.displayManager.defaultSession = "niri";
+      services.displayManager.defaultSession = "niri";
     };
 }

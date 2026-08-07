@@ -7,9 +7,13 @@
     flake-parts.url = "github:hercules-ci/flake-parts";
     import-tree.url = "github:vic/import-tree";
 
+    aagl = {
+      url = "github:ezKEa/aagl-gtk-on-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     nixos-wsl = {
       url = "github:nix-community/NixOS-WSL/main";
-      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     spicetify-nix = {
@@ -24,7 +28,6 @@
 
     nixvim = {
       url = "github:nix-community/nixvim";
-      inputs.nixpkgs.follows = "nixpkgs";
       inputs.flake-parts.follows = "flake-parts";
     };
 
@@ -51,6 +54,11 @@
 
     luminotes = {
       url = "github:ruzbyte/luminotes";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    elden-ring-convergence = {
+      url = "github:ruzbyte/elden-ring-convergence-flake";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
