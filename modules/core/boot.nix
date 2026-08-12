@@ -4,36 +4,9 @@
     let
       bootWindows = pkgs.writeShellApplication {
         name = "boot-windows";
-        runtimeInputs = with pkgs; [
-          efibootmgr
-          polkit
-          sudo
-          systemd
-        ];
+        runtimeInputs = [ pkgs.systemd ];
         text = ''
-          if (( EUID != 0 )); then
-            if [[ -t 0 ]]; then
-              exec sudo /run/current-system/sw/bin/boot-windows "$@"
-            else
-              exec pkexec /run/current-system/sw/bin/boot-windows "$@"
-            fi
-          fi
-
-          windows_entry_found=false
-          while IFS= read -r entry; do
-            if [[ $entry =~ ^Boot0000\*?[[:space:]]+Windows[[:space:]]+Boot[[:space:]]+Manager([[:space:]]|$) ]]; then
-              windows_entry_found=true
-              break
-            fi
-          done < <(efibootmgr)
-
-          if [[ $windows_entry_found != true ]]; then
-            echo "Boot0000 is not Windows Boot Manager; refusing to change BootNext." >&2
-            exit 1
-          fi
-
-          efibootmgr --bootnext 0000
-          systemctl reboot
+          systemctl start boot-windows.service
         '';
       };
 
@@ -74,6 +47,32 @@
       ];
       boot.consoleLogLevel = 0;
       boot.initrd.verbose = false;
+
+      systemd.services.boot-windows = {
+        description = "Set Windows Boot Manager for the next boot and restart";
+        path = with pkgs; [
+          efibootmgr
+          systemd
+        ];
+        script = ''
+          windows_entry_found=false
+          while IFS= read -r entry; do
+            if [[ $entry =~ ^Boot0000\*?[[:space:]]+Windows[[:space:]]+Boot[[:space:]]+Manager([[:space:]]|$) ]]; then
+              windows_entry_found=true
+              break
+            fi
+          done < <(efibootmgr)
+
+          if [[ $windows_entry_found != true ]]; then
+            echo "Boot0000 is not Windows Boot Manager; refusing to change BootNext." >&2
+            exit 1
+          fi
+
+          efibootmgr --bootnext 0000
+          systemctl reboot --no-block
+        '';
+        serviceConfig.Type = "oneshot";
+      };
 
       environment.systemPackages = with pkgs; [
         bootWindows

@@ -57,6 +57,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    chatgpt = {
+      url = "github:ruzbyte/chatgpt-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     elden-ring-convergence = {
       url = "github:ruzbyte/elden-ring-convergence-flake";
       inputs.nixpkgs.follows = "nixpkgs";
