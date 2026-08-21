@@ -9,8 +9,6 @@
       };
     };
 
-    hardware.nvidia-container-toolkit.enable = true;
-
     users.users.ruzbyte.extraGroups = [ "docker" ];
 
     environment.systemPackages = with pkgs; [

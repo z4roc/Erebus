@@ -12,6 +12,8 @@
             package = config.boot.kernelPackages.nvidiaPackages.stable;
         };
 
+        hardware.nvidia-container-toolkit.enable = true;
+
         environment.sessionVariables = {
             NVD_BACKEND = "direct";
             LIBVA_DRIVER_NAME = "nvidia";

@@ -1,8 +1,9 @@
-{ ... }: {
+{ inputs, ... }: {
   flake.nixosModules.chat = { pkgs, ... }: {
-    environment.systemPackages = with pkgs; [
-      teams-for-linux
-      vesktop
+    environment.systemPackages = [
+      inputs.chatgpt.packages.${pkgs.stdenv.hostPlatform.system}.default
+      pkgs.teams-for-linux
+      pkgs.vesktop
     ];
   };
 }

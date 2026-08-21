@@ -1,0 +1,54 @@
+#!/usr/bin/env sh
+
+set -eu
+
+repository_root=$(CDPATH= cd -- "$(dirname -- "$0")/.." && pwd)
+package_file="$repository_root/packages/t3code.nix"
+channel=${1:-nightly}
+
+case "$channel" in
+  nightly)
+    version=$(
+      curl --fail --silent --show-error \
+        'https://api.github.com/repos/pingdotgg/t3code/releases?per_page=20' \
+        | sed -n 's/^[[:space:]]*"tag_name": "v\([^"]*-nightly\.[^"]*\)",/\1/p' \
+        | sed -n '1p'
+    )
+    ;;
+  stable)
+    latest_release_url=$(
+      curl --fail --silent --show-error --location \
+        --output /dev/null \
+        --write-out '%{url_effective}' \
+        https://github.com/pingdotgg/t3code/releases/latest
+    )
+    version=${latest_release_url##*/v}
+    ;;
+  *)
+    echo "Usage: $0 [nightly|stable]" >&2
+    exit 1
+    ;;
+esac
+
+case "$version" in
+  '' | *[!0-9A-Za-z.-]*)
+    echo "Could not determine the latest T3 Code $channel version" >&2
+    exit 1
+    ;;
+esac
+
+asset_url="https://github.com/pingdotgg/t3code/releases/download/v$version/T3-Code-$version-x86_64.AppImage"
+prefetch_result=$(nix store prefetch-file --json "$asset_url")
+hash=$(printf '%s\n' "$prefetch_result" | sed -n 's/.*"hash":"\([^"]*\)".*/\1/p')
+
+if [ -z "$hash" ]; then
+  echo "Could not read the AppImage hash from nix store prefetch-file" >&2
+  exit 1
+fi
+
+sed --in-place --regexp-extended \
+  -e 's|version = "[^"]+";|version = "'"$version"'";|' \
+  -e 's|hash = "sha256-[^"]+";|hash = "'"$hash"'";|' \
+  "$package_file"
+
+echo "T3 Code is pinned to $channel $version ($hash)"

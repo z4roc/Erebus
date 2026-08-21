@@ -3,7 +3,7 @@
     environment.systemPackages = with pkgs; [
       claude-code
       codex
-      t3code
+      (pkgs.callPackage ../../packages/t3code.nix { })
       opencode
     ];
 
