@@ -4,17 +4,35 @@ set -eu
 
 repository_root=$(CDPATH= cd -- "$(dirname -- "$0")/.." && pwd)
 package_file="$repository_root/packages/t3code.nix"
-latest_release_url=$(
-  curl --fail --silent --show-error --location \
-    --output /dev/null \
-    --write-out '%{url_effective}' \
-    https://github.com/pingdotgg/t3code/releases/latest
-)
-version=${latest_release_url##*/v}
+channel=${1:-nightly}
+
+case "$channel" in
+  nightly)
+    version=$(
+      curl --fail --silent --show-error \
+        'https://api.github.com/repos/pingdotgg/t3code/releases?per_page=20' \
+        | sed -n 's/^[[:space:]]*"tag_name": "v\([^"]*-nightly\.[^"]*\)",/\1/p' \
+        | sed -n '1p'
+    )
+    ;;
+  stable)
+    latest_release_url=$(
+      curl --fail --silent --show-error --location \
+        --output /dev/null \
+        --write-out '%{url_effective}' \
+        https://github.com/pingdotgg/t3code/releases/latest
+    )
+    version=${latest_release_url##*/v}
+    ;;
+  *)
+    echo "Usage: $0 [nightly|stable]" >&2
+    exit 1
+    ;;
+esac
 
 case "$version" in
-  '' | *[!0-9.]*)
-    echo "Could not determine the latest T3 Code version from $latest_release_url" >&2
+  '' | *[!0-9A-Za-z.-]*)
+    echo "Could not determine the latest T3 Code $channel version" >&2
     exit 1
     ;;
 esac
@@ -33,4 +51,4 @@ sed --in-place --regexp-extended \
   -e 's|hash = "sha256-[^"]+";|hash = "'"$hash"'";|' \
   "$package_file"
 
-echo "T3 Code is pinned to $version ($hash)"
+echo "T3 Code is pinned to $channel $version ($hash)"
