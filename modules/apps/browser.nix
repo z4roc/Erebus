@@ -5,19 +5,11 @@
 
       policies = {
           DisableAppUpdate = true;
-          DisplayBookmarksToolbar = true;
+          DisplayBookmarksToolbar = "always";
 
           Preferences = {
             "browser.toolbars.bookmarks.visibility" = {
               Value = "always";
-              Status = "locked";
-            };
-            "zen.view.compact.enable-at-startup" = {
-              Value = false;
-              Status = "locked";
-            };
-            "zen.view.use-single-toolbar" = {
-              Value = false;
               Status = "locked";
             };
           };
@@ -55,7 +47,13 @@
 
       zen = inputs.zen-browser.packages.${pkgs.stdenv.hostPlatform.system}.default.override {
         wrapFirefox = unwrapped: options:
-          pkgs.wrapFirefox unwrapped (options // { extraPolicies = policies; });
+          pkgs.wrapFirefox unwrapped (options // {
+            extraPolicies = policies;
+            extraPrefs = ''
+              lockPref("zen.view.compact.enable-at-startup", false);
+              lockPref("zen.view.use-single-toolbar", false);
+            '';
+          });
       };
     in
     {

@@ -116,7 +116,7 @@
                     "colorizeDistroLogo": false,
                     "colorizeSystemIcon": "none",
                     "colorizeSystemText": "none",
-                    "customIconPath": "/home/ruzbyte/.applauncher.png",
+                    "customIconPath": "/home/zaroc/.applauncher.png",
                     "enableColorization": true,
                     "icon": "noctalia",
                     "id": "ControlCenter",
@@ -227,6 +227,15 @@
                 },
                 {
                     "defaultSettings": {
+                        "currentIconName": "world-download",
+                        "hideOnZero": false,
+                        "updateIntervalMinutes": 30,
+                        "updateTerminalCommand": "foot -e"
+                    },
+                    "id": "plugin:update-count"
+                },
+                {
+                    "defaultSettings": {
                         "activeColor": "primary",
                         "camFilterRegex": "",
                         "enableToast": true,
@@ -261,15 +270,6 @@
                         "videoSource": "portal"
                     },
                     "id": "plugin:screen-recorder"
-                },
-                {
-                    "defaultSettings": {
-                        "currentIconName": "world-download",
-                        "hideOnZero": false,
-                        "updateIntervalMinutes": 30,
-                        "updateTerminalCommand": "foot -e"
-                    },
-                    "id": "plugin:update-count"
                 }
             ]
         }
@@ -417,7 +417,7 @@
         "animationDisabled": false,
         "animationSpeed": 1.1,
         "autoStartAuth": false,
-        "avatarImage": "/home/ruzbyte/.face.icon",
+        "avatarImage": "/home/zaroc/.face.icon",
         "boxRadiusRatio": 1,
         "clockFormat": "HH:mm ",
         "clockStyle": "custom",
@@ -740,7 +740,7 @@
     },
     "wallpaper": {
         "automationEnabled": false,
-        "directory": "/home/ruzbyte/dotfiles/wallpapers",
+        "directory": "/home/zaroc/dotfiles/wallpapers",
         "enableMultiMonitorDirectories": true,
         "enabled": true,
         "favorites": [

@@ -1,5 +1,5 @@
 { self, ... }: {
-  flake.homeModules.ruzbyte =
+  flake.homeModules.zaroc =
     { config, ... }:
     let
       # Writable copy of the repo, outside the read-only Nix store, so apps
@@ -7,8 +7,8 @@
       dotfiles = "${config.home.homeDirectory}/dotfiles";
     in
     {
-      home.username = "ruzbyte";
-      home.homeDirectory = "/home/ruzbyte";
+      home.username = "zaroc";
+      home.homeDirectory = "/home/zaroc";
       home.stateVersion = "26.05";
 
       xdg.enable = true;

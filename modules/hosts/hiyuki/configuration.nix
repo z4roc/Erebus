@@ -45,21 +45,15 @@
 
       security.rtkit.enable = true;
 
-      users.users."ruzbyte" = {
+      users.users."zaroc" = {
         isNormalUser = true;
-        description = "ruzbyte";
+        description = "zaroc";
         extraGroups = [
           "networkmanager"
           "wheel"
           "kvm"
-
-        ];
-        packages = with pkgs; [
-          kdePackages.kate
         ];
       };
-
-      programs.firefox.enable = true;
 
       nixpkgs.config.allowUnfree = true;
 

@@ -47,6 +47,6 @@
       LC_TIME = "de_DE.UTF-8";
     };
 
-    wsl.defaultUser = "ruzbyte";
+    wsl.defaultUser = "zaroc";
   };
 }

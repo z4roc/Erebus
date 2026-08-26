@@ -12,8 +12,8 @@
     compression = 9
     preloadIndex = true
 
-[url "git@github.com:ruzbyte/"]
-    insteadOf = "ruzbyte:"
+[url "git@github.com:zaroc-dev/"]
+    insteadOf = "zaroc-dev:"
 
 [url "git@github.com:"]
     insteadOf = "gh:"

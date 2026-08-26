@@ -8,8 +8,8 @@
       self.nixosModules.desktop
       self.nixosModules.development
       self.nixosModules.steam
-      self.nixosModules.elden-ring-convergence
-      self.nixosModules.emulators
+      # self.nixosModules.elden-ring-convergence
+      # self.nixosModules.emulators
       self.nixosModules.audio
       self.nixosModules.terminal
       self.nixosModules.bluetooth

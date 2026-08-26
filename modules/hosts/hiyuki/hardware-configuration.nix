@@ -2,7 +2,8 @@
 { self, inputs, ... }: {
 
 	flake.nixosModules.hiyukiHardware = { config, lib, pkgs, modulesPath, ... }:
-	{
+
+{
   imports =
     [ (modulesPath + "/installer/scan/not-detected.nix")
     ];
@@ -13,33 +14,33 @@
   boot.extraModulePackages = [ ];
 
   fileSystems."/" =
-    { device = "/dev/disk/by-uuid/626c4b3e-2b69-487c-9261-e272908eec18";
+    { device = "/dev/disk/by-uuid/134db751-2f9f-46f4-88f5-b9236b7399cf";
       fsType = "btrfs";
     };
 
   fileSystems."/home" =
-    { device = "/dev/disk/by-uuid/626c4b3e-2b69-487c-9261-e272908eec18";
+    { device = "/dev/disk/by-uuid/134db751-2f9f-46f4-88f5-b9236b7399cf";
       fsType = "btrfs";
       options = [ "subvol=home" ];
     };
 
   fileSystems."/nix" =
-    { device = "/dev/disk/by-uuid/626c4b3e-2b69-487c-9261-e272908eec18";
+    { device = "/dev/disk/by-uuid/134db751-2f9f-46f4-88f5-b9236b7399cf";
       fsType = "btrfs";
       options = [ "subvol=nix" ];
     };
 
   fileSystems."/boot" =
-    { device = "/dev/disk/by-uuid/36DA-4E44";
+    { device = "/dev/disk/by-uuid/7D95-912D";
       fsType = "vfat";
       options = [ "fmask=0077" "dmask=0077" ];
     };
 
   swapDevices =
-    [ { device = "/dev/disk/by-uuid/ff1d2da4-e32a-45da-91d3-93b9404b2acc"; }
+    [ { device = "/dev/disk/by-uuid/43f194ca-944a-467a-89e8-d38cccfa5c6c"; }
     ];
 
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
-  	hardware.cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
-	};
+  hardware.cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
+};
 }

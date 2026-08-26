@@ -19,7 +19,7 @@
         pull.rebase = true;
 
         user = {
-          name = "ruzbyte";
+          name = "zaroc";
           email = "arthuraktamirov@gmail.com";
           signingKey = "~/.ssh/github.pub";
         };

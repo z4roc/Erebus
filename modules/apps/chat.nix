@@ -1,9 +1,9 @@
 { inputs, ... }: {
   flake.nixosModules.chat = { pkgs, ... }: {
     environment.systemPackages = [
-      inputs.chatgpt.packages.${pkgs.stdenv.hostPlatform.system}.default
+      # inputs.chatgpt.packages.${pkgs.stdenv.hostPlatform.system}.default
       pkgs.teams-for-linux
-      pkgs.vesktop
+      (pkgs.discord.override { withVencord = true; })
     ];
   };
 }

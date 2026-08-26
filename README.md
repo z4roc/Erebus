@@ -1,4 +1,4 @@
-# ruzbyte dotfiles
+# zaroc dotfiles
 
 ## Install
 
@@ -6,7 +6,7 @@
 > Clone into your home directory
 
 ```sh
-cd ~ && git clone https://github.com/ruzbyte/dotfiles
+cd ~ && git clone https://github.com/zaroc-dev/dotfiles
 ```
 
 ## NixOS

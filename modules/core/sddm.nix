@@ -21,7 +21,7 @@
 
       services.displayManager.autoLogin = {
         enable = true;
-        user = "ruzbyte";
+        user = "zaroc";
       };
 
       services.displayManager.defaultSession = "niri";

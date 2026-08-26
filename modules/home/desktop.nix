@@ -5,7 +5,7 @@
 {
   config.flake.nixosModules.home-desktop = { ... }: {
     home-manager = {
-      users.ruzbyte.imports = [
+      users.zaroc.imports = [
         self.homeModules.gtk
         self.homeModules.kde
         self.homeModules.icons

@@ -7,8 +7,8 @@
 
     programs.elden-ring-convergence = {
       enable = true;
-      user = "ruzbyte";
-      installDirectory = "/home/ruzbyte/Games/ConvergenceER";
+      user = "zaroc";
+      installDirectory = "/home/zaroc/Games/ConvergenceER";
     };
   };
 }

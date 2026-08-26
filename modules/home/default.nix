@@ -19,15 +19,15 @@
     ];
 
     programs.zsh.enable = true;
-    users.users.ruzbyte.shell = pkgs.zsh;
+    users.users.zaroc.shell = pkgs.zsh;
 
     home-manager = {
       useGlobalPkgs = true;
       useUserPackages = true;
       extraSpecialArgs = { inherit self inputs; };
-      users.ruzbyte.imports = [
+      users.zaroc.imports = [
         inputs.nixvim.homeModules.nixvim
-        self.homeModules.ruzbyte
+        self.homeModules.zaroc
         self.homeModules.nvim
         self.homeModules.zsh
         self.homeModules.starship

@@ -4,10 +4,10 @@
       inputs.aagl.nixosModules.default
     ];
 
-    nix.settings = inputs.aagl.nixConfig;
+    # nix.settings = inputs.aagl.nixConfig;
 
     programs.steam.enable = true;
-    programs.honkers-railway-launcher.enable = true;
+    # programs.honkers-railway-launcher.enable = true;
 
     hardware.steam-hardware.enable = true;
 
@@ -21,9 +21,9 @@
       winetricks
 
       prismlauncher
-      osu-lazer-bin
+      # osu-lazer-bin
     ];
-    users.users."ruzbyte" = {
+    users.users."zaroc" = {
       extraGroups = [ "input" ];
     };
   };
