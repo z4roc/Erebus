@@ -1,7 +1,7 @@
 [user]
-    name = "ruzbyte"
+    name = "zaroc-dev"
     email = "arthuraktamirov@gmail.com"
-    signingKey = ~/.ssh/bw_github_sec
+    signingKey = ~/.ssh/github
 
 [gpg]
     format = ssh
