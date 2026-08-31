@@ -6,13 +6,10 @@
 
     environment.systemPackages = with pkgs; [
       kitty
-
       wl-clipboard
       cliphist
-      noctalia-shell
+      noctalia
       xwayland-satellite
-      nautilus
-
       fuzzel
     ];
   };

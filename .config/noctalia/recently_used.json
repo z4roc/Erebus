@@ -1,0 +1,6 @@
+{
+  "Applications": [
+    "/etc/profiles/per-user/zaroc/share/applications/zen.desktop",
+    "/run/current-system/sw/share/applications/spotify.desktop"
+  ]
+}

@@ -1,4 +1,11 @@
 window-rule {
+    background-effect {
+        blur true
+        xray false
+    }
+}
+
+window-rule {
     match app-id="kitty"
     open-maximized false
 
@@ -6,7 +13,22 @@ window-rule {
 	blur true
     }
 }
+layer-rule {
+  match namespace="^noctalia-(bar-[^\"]+|notification|dock|panel|attached-panel|osd)$"
+  background-effect {
+    xray false
+    // blur false
+  }
+}
 
+/* Enable blur on noctalia's window switcher and disable xray. */
+layer-rule {
+    match namespace="noctalia-window-switcher"
+    background-effect {
+        blur true
+        xray false
+    }
+}
 window-rule {
     match app-id="vesktop"
     match app-id="brave"
@@ -26,11 +48,6 @@ window-rule {
 }
 
 window-rule {
-    match title="^Friends List*"
-    open-floating true
-}
-
-window-rule {
     match app-id="jetbrains-idea"
     match app-id="Spotify"
     match app-id="code"
@@ -40,8 +57,3 @@ window-rule {
     open-maximized true
 }
 
-window-rule {
-    match app-id="jetbrains-idea"
-    match app-id="steam_app_default"
-    open-on-output "DP-1"
-}

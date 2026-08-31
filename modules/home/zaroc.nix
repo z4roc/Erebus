@@ -35,6 +35,7 @@
         EDITOR = "nvim";
         VISUAL = "nvim";
         BROWSER = "zen";
+
       };
     };
 }
