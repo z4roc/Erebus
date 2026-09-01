@@ -485,6 +485,12 @@
 
           pcall(vim.treesitter.language.register, "svelte", "svelte")
 
+          -- nixpkgs' nvim-treesitter-grammars still ships master-era queries
+          -- (nix, javascript) that use #is-not?/#is?, but nvim-treesitter main
+          -- dropped those predicates -> "No handler for is-not?" on redraw.
+          vim.treesitter.query.add_predicate("is-not?", function() return true end, { force = true, all = false })
+          vim.treesitter.query.add_predicate("is?", function() return false end, { force = true, all = false })
+
           local telescope_ok, telescope_builtin = pcall(require, "telescope.builtin")
           if telescope_ok then
             vim.keymap.set("n", "<leader>ff", telescope_builtin.find_files, { desc = "Find files" })

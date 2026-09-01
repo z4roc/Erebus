@@ -4,7 +4,6 @@
       dotnet-sdk
       nuget
       mono
-
     ];
   };
 

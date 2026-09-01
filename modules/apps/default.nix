@@ -4,7 +4,8 @@
       self.nixosModules.chat
       self.nixosModules.music
       self.nixosModules.business
-      self.nixosModules.luminotes
     ];
+
+    services.flatpak.enable = true;
   };
 }

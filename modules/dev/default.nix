@@ -1,7 +1,6 @@
 { self, ... }: {
-  flake.nixosModules.development = { ... }: {
+  flake.nixosModules.development = { pkgs, ... }: {
     imports = [
-      # self.nixosModules.android
       # self.nixosModules.flutter
       self.nixosModules.cli-tools
       self.nixosModules.javascript
@@ -10,8 +9,13 @@
       # self.nixosModules.java
       self.nixosModules.git
       self.nixosModules.docker
-      # self.nixosModules.ides
       self.nixosModules.rust
+    ];
+
+    environment.systemPackages = with pkgs; [
+      zed-editor
+      vscode
+      google-chrome
     ];
   };
 }

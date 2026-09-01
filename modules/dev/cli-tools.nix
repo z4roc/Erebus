@@ -3,7 +3,6 @@
     environment.systemPackages = with pkgs; [
       claude-code
       codex
-      (pkgs.callPackage ../../packages/t3code.nix { })
       opencode
       nil
       nixfmt

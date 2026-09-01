@@ -1,4 +1,4 @@
-{ self, inputs, ... }: {
+{ self, ... }: {
 
   flake.nixosModules.acheronConfiguration =
     { config, pkgs, ... }:
@@ -53,7 +53,6 @@
           "kvm"
         ];
       };
-
 
       nixpkgs.config.allowUnfree = true;
 
