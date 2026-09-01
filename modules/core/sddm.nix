@@ -19,11 +19,9 @@
 
       environment.systemPackages = [ qylockThemes ];
 
-      services.displayManager.autoLogin = {
-        enable = true;
-        user = "zaroc";
-      };
-
       services.displayManager.defaultSession = "niri";
+
+      services.gnome.gnome-keyring.enable = true;
+      security.pam.services.sddm.enableGnomeKeyring = true;
     };
 }
