@@ -7,11 +7,6 @@
     flake-parts.url = "github:hercules-ci/flake-parts";
     import-tree.url = "github:vic/import-tree";
 
-    aagl = {
-      url = "github:ezKEa/aagl-gtk-on-nix";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
     nixos-wsl = {
       url = "github:nix-community/NixOS-WSL/main";
     };
@@ -49,21 +44,6 @@
 
     qylock = {
       url = "github:Darkkal44/qylock";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    luminotes = {
-      url = "github:ruzbyte/luminotes";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    chatgpt = {
-      url = "github:ruzbyte/chatgpt-nix";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    elden-ring-convergence = {
-      url = "github:ruzbyte/elden-ring-convergence-flake";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
